@@ -13,7 +13,15 @@ describe("json placeholder api test", () => {
   });
 
   it("can get some photos", (done) => {
-    url.get("/albums/1/photos").expect(200, done);
+    url
+      .post("/albums/1/photos")
+      .send(data)
+      .set("Accept", "application/json")
+      .expect(201)
+      .end((err) => {
+        if (err) return done(err);
+        done();
+      });
   });
 
   it("can get a users albums", (done) => {
